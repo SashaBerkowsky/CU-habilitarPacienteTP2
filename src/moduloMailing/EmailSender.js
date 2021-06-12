@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-async function createEmailSender(user, pass) {
+function createEmailSender(user, pass) {
   const transporter = nodemailer.createTransport({
     /*host: "smtp.ethereal.email",
         port: 587,

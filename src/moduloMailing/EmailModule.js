@@ -1,10 +1,10 @@
 import { createEmailComprobante } from "./EmailComprobante.js";
 
-async function crearEmailModule(auth, adminEmail) {
-  const emailComprobante = await createEmailComprobante(auth.mail, auth.pass);
+function crearEmailModule(auth, adminEmail) {
+  const emailComprobante = createEmailComprobante(auth.mail, auth.pass);
 
   return {
-    avisoAPaciente: (paciente) => {
+    avisoAPaciente: async (paciente) => {
       const mensaje = `${paciente.nombre} ${paciente.apellido} te avisamos que estas en la lista de espera para ser vacunado, te notificaremos cuando tengas un turno asignado`;
 
       const datosMail = {
@@ -13,9 +13,9 @@ async function crearEmailModule(auth, adminEmail) {
         asunto: "VACUNACION",
         mensaje: mensaje,
       };
-      emailComprobante.send(datosMail);
+      await emailComprobante.send(datosMail);
     },
-    avisoAAdmin: (paciente) => {
+    avisoAAdmin: async (paciente) => {
       const datosPaciente = `Nombre: ${paciente.nombre} ${paciente.apellido} <br/>
       Dni: ${paciente.dni} <br/>
       Edad: ${paciente.edad} <br/>
@@ -33,7 +33,7 @@ async function crearEmailModule(auth, adminEmail) {
         type: paciente.foto.type,
       };
 
-      emailComprobante.sendWithImage(datosMail);
+      await emailComprobante.sendWithImage(datosMail);
     },
   };
 }

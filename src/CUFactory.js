@@ -8,8 +8,8 @@ const authVacunatorio = {
 };
 const emailAdmin = "s.nberkowsky@gmail.com";
 
-async function crearCU() {
-  const emailModule = await crearEmailModule(authVacunatorio, emailAdmin);
+function crearCU() {
+  const emailModule = crearEmailModule(authVacunatorio, emailAdmin);
   const daoSolicitudes = crearDaoSolicitudesDeTurno();
   return HabilitarSolicitud(daoSolicitudes, emailModule);
 }

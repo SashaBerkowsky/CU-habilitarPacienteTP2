@@ -2,7 +2,7 @@ import express from "express";
 
 import { crearRouterSolicitudes } from "./routers/routerSolicitudes.js";
 
-function createServer(port) {
+function startServer(port) {
   const app = express();
 
   app.use(express.json());
@@ -21,4 +21,4 @@ function createServer(port) {
   });
 }
 
-export { createServer };
+export { startServer };

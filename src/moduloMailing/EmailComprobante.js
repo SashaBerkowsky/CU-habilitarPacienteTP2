@@ -1,23 +1,23 @@
 import { createEmailSender } from "./EmailSender.js";
 import { createEmailBuilder } from "./EmailBuilder.js";
 
-async function createEmailComprobante(user, pass) {
-  const builder = await createEmailBuilder();
-  const sender = await createEmailSender(user, pass);
+function createEmailComprobante(user, pass) {
+  const builder = createEmailBuilder();
+  const sender = createEmailSender(user, pass);
 
   return {
     send: async (datos) => {
-      let email = await builder.createEmailPlainText(
+      let email = builder.createEmailPlainText(
         datos.from,
         datos.to,
         datos.asunto,
         datos.mensaje
       );
-      sender.send(email);
+      await sender.send(email);
     },
 
     sendWithImage: async (datos) => {
-      let email = await builder.createEmailWithAttachment(
+      let email = builder.createEmailWithAttachment(
         datos.from,
         datos.to,
         datos.asunto,
@@ -26,7 +26,7 @@ async function createEmailComprobante(user, pass) {
         datos.root,
         datos.type
       );
-      sender.send(email);
+      await sender.send(email);
     },
   };
 }
