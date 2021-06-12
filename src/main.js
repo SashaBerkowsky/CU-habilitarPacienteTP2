@@ -1,4 +1,4 @@
-import { startServer } from "./src/rooteo/Server.js";
+import { startServer } from "./rooteo/Server.js";
 import FormData from "form-data";
 import fs from "fs";
 import axios from "axios";
@@ -30,6 +30,7 @@ async function test() {
   const res = await axios.post(url + "/", paciente, {
     headers: paciente.getHeaders(),
   });
+
   console.log(res.data);
 }
 

@@ -22,7 +22,6 @@ function crearEmailModule(auth, adminEmail) {
       Email: ${paciente.email} <br/>
       Antecedentes: ${paciente.antecedentes}`;
       const mensaje = `Nuevo paciente ingresado a la lista de espera, revise los datos y confirme su admision para asignarle un turno <br/> Datos del paciente: <br/>${datosPaciente}`;
-      console.log(paciente);
       const datosMail = {
         from: auth.user,
         to: adminEmail,

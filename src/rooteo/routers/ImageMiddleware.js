@@ -31,7 +31,6 @@ function crearImageMiddleware(config) {
 
   return function (req, res, next) {
     upload(req, res, async (err) => {
-      console.log(req.body);
       if (err instanceof multer.MulterError) {
         return res
           .status(400)
