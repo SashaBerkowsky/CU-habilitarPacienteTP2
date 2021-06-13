@@ -16,7 +16,7 @@ function crearSolicitudDeTurno(datos) {
   if (!datos.paciente) {
     throw new Error("falta paciente");
   } else {
-    solicitud.paciente = datos.paciente;
+    solicitud.paciente = crearPaciente(datos.paciente);
   }
 
   if (!datos.turno) {
