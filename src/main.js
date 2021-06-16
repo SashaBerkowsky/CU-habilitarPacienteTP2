@@ -1,4 +1,4 @@
-import { startServer } from "./rooteo/Server.js";
+import { crearServer } from "./compartido/routeo/server.js";
 import FormData from "form-data";
 import fs from "fs";
 import axios from "axios";
@@ -25,8 +25,11 @@ function crearPacienteForm() {
 }
 
 async function test() {
-  const servidor = await startServer(puerto);
+  const servidor = crearServer();
   const paciente = crearPacienteForm();
+
+  await servidor.conectar(puerto);
+
   const res = await axios.post(url + "/", paciente, {
     headers: paciente.getHeaders(),
   });

@@ -1,6 +1,6 @@
-import { crearEmailModule } from "./moduloMailing/EmailModule.js";
-import { crearDaoSolicitudesDeTurno } from "./persistencia/daos/daoSolicitudesDeTurno.js";
-import { HabilitarSolicitud } from "./HabilitarSolicitud.js";
+import { crearEmailModule } from "../../../compartido/moduloMailing/emailModule.js";
+import { crearDaoSolicitudesDeTurno } from "../../persistencia/daos/daoSolicitudesDeTurno.js";
+import { HabilitarSolicitud } from "./habilitarSolicitud.js";
 
 const authVacunatorio = {
   mail: "ort.proy.integrador.21@gmail.com",
@@ -8,10 +8,10 @@ const authVacunatorio = {
 };
 const emailAdmin = "s.nberkowsky@gmail.com";
 
-function crearCU() {
+function crearCU_HabilitarPaciente() {
   const emailModule = crearEmailModule(authVacunatorio, emailAdmin);
   const daoSolicitudes = crearDaoSolicitudesDeTurno();
   return HabilitarSolicitud(daoSolicitudes, emailModule);
 }
 
-export { crearCU };
+export { crearCU_HabilitarPaciente };

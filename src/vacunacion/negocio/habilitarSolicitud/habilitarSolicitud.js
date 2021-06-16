@@ -1,4 +1,4 @@
-import { crearSolicitudDeTurno } from "./modelos/SolicitudDeTurno.js";
+import { crearSolicitudDeTurno } from "../../modelos/SolicitudDeTurno.js";
 
 function HabilitarSolicitud(daoSolicitudesDeTurno, emailModule) {
   return {
@@ -8,8 +8,8 @@ function HabilitarSolicitud(daoSolicitudesDeTurno, emailModule) {
       if (!fueAgregado) {
         throw new Error("el paciente ya esta en la lista de espera");
       }
-      await emailModule.avisoAPaciente(solicitud.paciente);
-      await emailModule.avisoAAdmin(solicitud.paciente);
+      // await emailModule.avisoAPaciente(solicitud.paciente);
+      // await emailModule.avisoAAdmin(solicitud.paciente);
       return solicitud;
     },
   };

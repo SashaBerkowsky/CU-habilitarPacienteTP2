@@ -1,5 +1,5 @@
-import { createEmailSender } from "./EmailSender.js";
-import { createEmailBuilder } from "./EmailBuilder.js";
+import { createEmailSender } from "./emailSender.js";
+import { createEmailBuilder } from "./emailBuilder.js";
 
 function createEmailComprobante(user, pass) {
   const builder = createEmailBuilder();

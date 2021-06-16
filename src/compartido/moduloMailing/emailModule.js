@@ -1,4 +1,4 @@
-import { createEmailComprobante } from "./EmailComprobante.js";
+import { createEmailComprobante } from "./emailComprobante.js";
 
 function crearEmailModule(auth, adminEmail) {
   const emailComprobante = createEmailComprobante(auth.mail, auth.pass);
