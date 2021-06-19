@@ -16,7 +16,7 @@ function crearRouterSolicitudes() {
       paciente: req.body,
     });
 
-    res.status(200).json(solicitud.getSolicitud());
+    res.status(200).json(solicitud);
   });
 
   return routerSolicitudes;
