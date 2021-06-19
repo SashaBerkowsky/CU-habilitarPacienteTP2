@@ -8,4 +8,8 @@ function getAuth() {
   };
 }
 
-export { getAuth };
+function getDBAuth() {
+  return process.env.MONGO_DB_AUTH;
+}
+
+export { getAuth, getDBAuth };
