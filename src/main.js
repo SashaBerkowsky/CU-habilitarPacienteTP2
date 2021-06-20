@@ -33,8 +33,6 @@ async function test() {
   const res = await axios.post(url + "/", paciente, {
     headers: paciente.getHeaders(),
   });
-
-  console.log(res.data);
 }
 
 test();
