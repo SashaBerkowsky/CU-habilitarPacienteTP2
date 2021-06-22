@@ -27,7 +27,7 @@ function crearSolicitudDeTurno(datos) {
     paciente = crearPaciente(datos);
   }
 
-  if (!datos.turno) {
+  if (!datos.turno || datos.turno ==null) {
     turno = null;
   } else {
     turno = crearTurno(datos.turno);
@@ -55,6 +55,10 @@ function crearSolicitudDeTurno(datos) {
     return paciente;
   };
 
+  solicitud.getDniPaciente= ()=>{
+    return paciente.dni
+  }
+
   solicitud.getTurno = () => {
     return turno;
   };
@@ -66,6 +70,10 @@ function crearSolicitudDeTurno(datos) {
   solicitud.getId = () => {
     return id;
   };
+
+  solicitud.setId=(newId)=>{
+    id=newId
+  }
 
   solicitud.getSolicitud = () => {
     return { turno, paciente, id, estado };
@@ -84,30 +92,17 @@ function crearSolicitudDeTurno(datos) {
   solicitud.getFecha = () => {
     return turno.fecha;
   };
-  (solicitud.confirmarTurno = () => {
+  solicitud.confirmarTurno = () => {
     estado = "CONFIRMADO_PARA_VACUNARSE";
-  }),
-    (solicitud.establecerTurno = (newturno) => {
+  }
+
+  solicitud.establecerTurno = (newturno) => {
       turno = newturno;
-    }),
-    (solicitud.getEmail = () => {
-      return paciente.email;
-    });
+  }
+  solicitud.getEmail = () => {
+    return paciente.email;
+  }
 
-  /* Lo hace el Dao consultando la BD
-   solicitud.esElPaciente = (dni) => {
-    return paciente.dni === dni;
-  };
-
-  solicitud.esLaSolicitud = (id) => {
-    return id === id;
-  };
-  
-  solicitud.confirmarSolicitud = (turno) => {
-    turno = turno;
-    estado = "CONFIRMADO";
-  }; 
-  */
 
   return solicitud;
 }

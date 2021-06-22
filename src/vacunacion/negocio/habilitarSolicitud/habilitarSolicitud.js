@@ -1,4 +1,4 @@
-import { crearSolicitudDeTurno } from "../../modelos/SolicitudDeTurnoOLD.js";
+import { crearSolicitudDeTurno } from "../../modelos/SolicitudDeTurno.js";
 import { crearErrorSolicitudExistente } from "../../../compartido/errores/ErrorSolicitudExistente.js";
 
 function HabilitarSolicitud(daoSolicitudesDeTurno, emailModule) {
@@ -11,10 +11,10 @@ function HabilitarSolicitud(daoSolicitudesDeTurno, emailModule) {
           "paciente ya tiene una solicitud asignada"
         );
       }
-      await emailModule.avisoAPaciente(solicitud.paciente);
-      await emailModule.avisoAAdmin(solicitud.paciente);
+      await emailModule.avisoAPaciente(solicitud.getPaciente());
+      await emailModule.avisoAAdmin(solicitud.getPaciente());
 
-      return solicitud;
+      return solicitud.getSolicitud();
     },
   };
 }

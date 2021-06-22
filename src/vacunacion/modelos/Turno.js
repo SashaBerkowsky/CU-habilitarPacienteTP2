@@ -15,10 +15,6 @@ function crearTurno(datos) {
     turno.fecha = datos.fecha;
   }
 
-  if (!datos.lugarVac) {
-    throw crearErrorDatosInvalidos("falta el lugar de vacunacion");
-  }
-
   if (!datos.tipoVacuna) {
     throw crearErrorDatosInvalidos("falta el tipo de vacuna");
   } else {
@@ -39,7 +35,6 @@ function crearTurno(datos) {
     turno.lugarVac = datos.lugarVac;
   }
 
-  turno.fueAplicada = false;
 
   return turno;
 }

@@ -3,7 +3,7 @@ import { crearSolicitudDeTurno } from "../../modelos/SolicitudDeTurno.js";
 function crearDaoSolicitudesMongo(db, lastId) {
   const dbSolicitudes = db.collection("solicitudes");
 
-  let idSol = lastId;
+  let idSol = lastId+1;
 
   async function findByDni(dni) {
     return await dbSolicitudes.findOne({
@@ -13,11 +13,10 @@ function crearDaoSolicitudesMongo(db, lastId) {
 
   return {
     addUnique: async (solicitud) => {
-      const solicitudByPaciente = await findByDni(solicitud.paciente.dni);
-
+      const solicitudByPaciente = await findByDni(solicitud.getDniPaciente());
       if (!solicitudByPaciente) {
-        solicitud.id = idSol++;
-        await dbSolicitudes.insertOne(solicitud);
+        solicitud.setId(idSol++) 
+        await dbSolicitudes.insertOne(solicitud.getSolicitud());
         return { added: 1 };
       } else {
         return { added: 0 };

@@ -1,5 +1,5 @@
 import {crearConfirmadorDeTurno} from './ConfirmadorDeTurno.js'
-//import {crearMailer} from '../../../Compartido/moduloMailing/mailerFactory.js'
+import {crearMailer} from '../../../Compartido/moduloMailing/mailerFactory.js'
 import {crearPdfer} from '../../../Compartido/pdfer/pdfFactory.js'
 import {getDaoSolicitudes} from '../../Persistencia/factoryDaoSolicitudes.js'
 import {CrearPreparadorDeDatosParaPdf} from '../../../Compartido/pdfer/PreparadorDeDatosPdf.js'
@@ -10,7 +10,7 @@ import {CrearPreparadorDeDatosParaPdf} from '../../../Compartido/pdfer/Preparado
  async function crearCuConfirmadorDeTurno(){
     const confirmadorDeTurno = crearConfirmadorDeTurno(
         crearPdfer(), 
-        //await crearMailer(),
+        await crearMailer(),
         getDaoSolicitudes(),
         CrearPreparadorDeDatosParaPdf()
         )

@@ -16,7 +16,6 @@ function crearRouterSolicitudes() {
     try {
       const CU_HabilitarPaciente = crearCU_HabilitarPaciente();
       const solicitud = await CU_HabilitarPaciente.ejecutar(req.body);
-
       res.status(200).json(solicitud);
     } catch (error) {
       next(error);

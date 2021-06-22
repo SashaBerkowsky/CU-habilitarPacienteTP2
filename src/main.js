@@ -10,14 +10,17 @@ async function main() {
   const servidor = crearServer();
 
   await servidor.conectar(getPort());
+
   temporizador.crearTemporizadorFechaHora(
     "recordatorio",
-    { hour: 8, minute: 30},
+    { hour: 17, minute: 58},
     () => {
       recordatorio.recordarDiasAntes(7);
     }
   );
 }
+
+
 
 main();
 
