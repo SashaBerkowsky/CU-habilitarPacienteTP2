@@ -24,7 +24,7 @@ BT
 T* (Nombre : Sasha) Tj
 T* (Apellido : Berkowsky) Tj
 T* (Dni : 42816270) Tj
-T* (Fecha : 29-06-2021) Tj
+T* (Fecha : 29-07-2021) Tj
 T* (Lugar : Sede centro) Tj
 T* (Tipo Vacuna: sputnik-v) Tj
 ET
@@ -200,7 +200,7 @@ endobj
 19 0 obj
 <<
 /Producer (jsPDF 2.3.1)
-/CreationDate (D:20210622185810-03'00')
+/CreationDate (D:20210622190306-03'00')
 >>
 endobj
 20 0 obj
@@ -239,7 +239,7 @@ trailer
 /Size 21
 /Root 20 0 R
 /Info 19 0 R
-/ID [ <E0B379E2E8D821CD8913B40AD954085D> <E0B379E2E8D821CD8913B40AD954085D> ]
+/ID [ <6DBDE2E986022D76269B808F9968016B> <6DBDE2E986022D76269B808F9968016B> ]
 >>
 startxref
 2759

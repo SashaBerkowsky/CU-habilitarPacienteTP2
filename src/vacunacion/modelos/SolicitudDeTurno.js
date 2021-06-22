@@ -104,6 +104,15 @@ function crearSolicitudDeTurno(datos) {
     return paciente.email;
   }
 
+  solicitud.getUltimaDosisAplicada = () => {
+    let dosis = "Todavia no recibio ninguna dosis";
+    if (estado == "VACUNADO_PRIMERA_DOSIS") {
+      dosis = "1° Dosis";
+    } else if (estado == "VACUNADO_SEGUNDA_DOSIS") {
+      dosis = "2° Dosis";
+    }
+    return dosis;
+  };
 
   return solicitud;
 }
