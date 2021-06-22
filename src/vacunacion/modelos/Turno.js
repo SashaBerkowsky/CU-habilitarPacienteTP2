@@ -1,3 +1,5 @@
+import { crearErrorDatosInvalidos } from "../../compartido/errores/ErrorDatosInvalidos.js";
+
 const tiposDeVacunaAceptadas = ["sputnik-v", "covishield", "sinopharm"];
 
 function crearTurno(datos) {
@@ -8,17 +10,17 @@ function crearTurno(datos) {
   if (!datos.fecha) {
     turno.fecha = undefined;
   } else if (!dateFormat.test(datos.fecha)) {
-    throw new Error("fecha invalida");
+    throw crearErrorDatosInvalidos("fecha invalida");
   } else {
     turno.fecha = datos.fecha;
   }
 
   if (!datos.lugarVac) {
-    throw new Error("falta el lugar de vacunacion");
+    throw crearErrorDatosInvalidos("falta el lugar de vacunacion");
   }
 
   if (!datos.tipoVacuna) {
-    throw new Error("falta el tipo de vacuna");
+    throw crearErrorDatosInvalidos("falta el tipo de vacuna");
   } else {
     esVacunaAceptada = tiposDeVacunaAceptadas.some(
       (vacunaAceptada) => vacunaAceptada === datos.tipoVacuna
@@ -26,13 +28,13 @@ function crearTurno(datos) {
   }
 
   if (!esVacunaAceptada) {
-    throw new Error("tipo de vacuna incorrecta");
+    throw crearErrorDatosInvalidos("tipo de vacuna incorrecta");
   } else {
     turno.tipoVacuna = datos.tipoVacuna;
   }
 
   if (!datos.lugarVac) {
-    throw new Error("falta el lugar de vacunacion");
+    throw crearErrorDatosInvalidos("falta el lugar de vacunacion");
   } else {
     turno.lugarVac = datos.lugarVac;
   }

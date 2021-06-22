@@ -1,5 +1,9 @@
-function crearDaoSolicitudesMongo(db) {
+import { crearSolicitudDeTurno } from "../../modelos/SolicitudDeTurno.js";
+
+function crearDaoSolicitudesMongo(db, lastId) {
   const dbSolicitudes = db.collection("solicitudes");
+
+  let idSol = lastId;
 
   async function findByDni(dni) {
     return await dbSolicitudes.findOne({
@@ -8,26 +12,34 @@ function crearDaoSolicitudesMongo(db) {
   }
 
   return {
-    add: async (solicitud) => {
-      const solicitudByPaciente = findByDni(solicitud.paciente.dni);
-      const solicitudById = await dbSolicitudes.findOne({
-        id: { $eq: solicitud.id },
-      });
-      if (!(solicitudById && solicitudByPaciente)) {
-        await dbSolicitudes.insertOne(solicitud, function (err, res) {
-          if (err) {
-            throw new Error("error mongo");
-          }
-        });
+    addUnique: async (solicitud) => {
+      const solicitudByPaciente = await findByDni(solicitud.paciente.dni);
+
+      if (!solicitudByPaciente) {
+        solicitud.id = idSol++;
+        await dbSolicitudes.insertOne(solicitud);
+        return { added: 1 };
       } else {
-        console.log("Hay duplicados");
+        return { added: 0 };
       }
     },
     getByDni: async (dni) => {
-      const solicitud = findByDni(dni);
-
+      const solicitudEncontrada = await findByDni(dni);
+      const solicitud = crearSolicitudDeTurno(solicitudEncontrada);
       if (solicitud) {
         return { solicitud, found: 1 };
+      } else {
+        return { found: 0 };
+      }
+    },
+    getById: async (elId) => {
+      const solicitudEncontrada = await dbSolicitudes.findOne({
+        id: {$eq:elId}
+      });
+      console.log(solicitudEncontrada);
+      const solicitud = crearSolicitudDeTurno(solicitudEncontrada);
+      if (solicitud) {
+        return { solicitud };
       } else {
         return { found: 0 };
       }
@@ -43,10 +55,12 @@ function crearDaoSolicitudesMongo(db) {
         return { found: 0 };
       }
     },
-    getSolicitudesParaRecordatorio: async (estado) => {
-      const solicitudesConfirmadas = this.getByEstado(estado);
+    update: async (solicitud) => {
+      await dbSolicitudes.replaceOne(
+        { id: solicitud.getId() },
+        solicitud.getSolicitud()
+      );
     },
-
     cerrar: async () => {
       await db.close();
     },

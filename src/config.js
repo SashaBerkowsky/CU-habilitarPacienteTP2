@@ -12,4 +12,12 @@ function getDBAuth() {
   return process.env.MONGO_DB_AUTH;
 }
 
-export { getAuth, getDBAuth };
+function getAdminEmail() {
+  return process.env.ADMIN_EMAIL;
+}
+
+function getPort(){
+  return process.env.PORT
+}
+
+export { getAuth, getDBAuth, getAdminEmail,getPort };

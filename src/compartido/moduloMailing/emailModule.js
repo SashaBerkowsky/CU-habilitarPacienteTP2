@@ -34,6 +34,20 @@ function crearEmailModule(auth, adminEmail) {
 
       await emailComprobante.sendWithImage(datosMail);
     },
+    avisoRecordatorio: async (solicitud) => {
+      const mensaje = `<div> Hola ${solicitud.paciente.nombre},<br> Recordamos que tu fecha de vacunación es el: ${solicitud.turno.fecha}, te esperamos en el ${solicitud.turno.lugar}! </div>`;
+      const subject =
+        solicitud.estado == "CONFIRMADO_PARA_VACUNARSE"
+          ? "Recordatorio primera dosis"
+          : "Recordatorio segunda dosis";
+      const datosMail = {
+        from: "Vacunate",
+        to: solicitud.paciente.email,
+        subject: subject,
+        mensaje: mensaje,
+      };
+      await emailComprobante.sendWithImageVacunate(datosMail);
+    },
   };
 }
 

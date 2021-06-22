@@ -1,5 +1,8 @@
 import { crearPaciente } from "./Paciente.js";
 import { crearTurno } from "./Turno.js";
+import { crearFechaHelper } from "../../compartido/fechaHelper/fechaHelper.js";
+
+const fechaHelper = crearFechaHelper();
 
 const estadosDeSolicitud = [
   "CONFIRMACION_DE_VACUNACION_PENDIENTE",
@@ -18,10 +21,10 @@ function crearSolicitudDeTurno(datos) {
   let estado;
   let id;
 
-  if (!datos.paciente) {
-    throw new Error("falta paciente");
-  } else {
+  if (datos.paciente) {
     paciente = crearPaciente(datos.paciente);
+  } else {
+    paciente = crearPaciente(datos);
   }
 
   if (!datos.turno) {
@@ -31,10 +34,10 @@ function crearSolicitudDeTurno(datos) {
   }
 
   if (!datos.estado) {
-    estado = "PENDIENTE";
+    estado = "CONFIRMACION_DE_VACUNACION_PENDIENTE";
   } else {
     const esEstadoValido = estadosDeSolicitud.some((e) => {
-      e === datos.estado;
+      return e === datos.estado;
     });
     if (!esEstadoValido) {
       throw new Error("estado de solicitud invalido");
@@ -42,7 +45,11 @@ function crearSolicitudDeTurno(datos) {
     estado = datos.estado;
   }
 
-  id = idSolicitud++;
+  if (!datos.id) {
+    id = idSolicitud++;
+  } else {
+    id = datos.id;
+  }
 
   solicitud.getPaciente = () => {
     return paciente;
@@ -64,9 +71,28 @@ function crearSolicitudDeTurno(datos) {
     return { turno, paciente, id, estado };
   };
 
+  solicitud.actualizarSolicitudDeTurno = () => {
+    if (estado == "CONFIRMADO_PARA_VACUNARSE") {
+      estado = "VACUNADO_PRIMERA_DOSIS";
+      turno.fecha = fechaHelper.sumarDias(30, turno.fecha);
+    } else if (estado == "VACUNADO_PRIMERA_DOSIS") {
+      estado = "VACUNADO_SEGUNDA_DOSIS";
+      turno.fecha = null;
+    }
+  };
+
   solicitud.getFecha = () => {
     return turno.fecha;
   };
+  (solicitud.confirmarTurno = () => {
+    estado = "CONFIRMADO_PARA_VACUNARSE";
+  }),
+    (solicitud.establecerTurno = (newturno) => {
+      turno = newturno;
+    }),
+    (solicitud.getEmail = () => {
+      return paciente.email;
+    });
 
   /* Lo hace el Dao consultando la BD
    solicitud.esElPaciente = (dni) => {

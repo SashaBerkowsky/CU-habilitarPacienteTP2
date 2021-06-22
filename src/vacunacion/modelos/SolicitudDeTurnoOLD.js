@@ -1,5 +1,6 @@
 import { crearPaciente } from "./Paciente.js";
 import { crearTurno } from "./Turno.js";
+import { crearErrorDatosInvalidos } from "../../compartido/errores/ErrorDatosInvalidos.js";
 
 const estadosDeSolicitud = [
   "PENDIENTE",
@@ -13,16 +14,12 @@ let idSolicitud = 0;
 function crearSolicitudDeTurno(datos) {
   const solicitud = {};
 
-  if (!datos.paciente) {
-    throw new Error("falta paciente");
-  } else {
-    solicitud.paciente = crearPaciente(datos.paciente);
-  }
+  solicitud.paciente = crearPaciente(datos);
 
   if (!datos.turno) {
     solicitud.turno = null;
   } else {
-    solicitud.turno = crearTurno(datos.turno);
+    solicitud.turno = crearTurno(datos);
   }
 
   if (!datos.estado) {
@@ -32,7 +29,7 @@ function crearSolicitudDeTurno(datos) {
       e === datos.estado;
     });
     if (!esEstadoValido) {
-      throw new Error("estado de solicitud invalido");
+      throw crearErrorDatosInvalidos("estado de solicitud invalido");
     }
     solicitud.estado = datos.estado;
   }

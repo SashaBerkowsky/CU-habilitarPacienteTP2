@@ -33,6 +33,22 @@ function createEmailBuilder(user, pass) {
       };
     },
 
+    createEmailWithImage: (from, to, subject, mensaje) => {
+      return {
+        from: from,
+        to: to,
+        subject: subject,
+        html: mensaje + `<img src="cid:codigoUnicoParafoto"/>`,
+        attachments: [
+          {
+            filename: "image.jpg",
+            path: "./image/image.jpg",
+            cid: "codigoUnicoParafoto", //same cid value as in the html img src
+          },
+        ],
+      };
+    },
+
     createEmailWithImageAndAttachment: (
       from,
       to,

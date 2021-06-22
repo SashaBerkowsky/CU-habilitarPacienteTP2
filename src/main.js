@@ -1,38 +1,26 @@
 import { crearServer } from "./compartido/routeo/server.js";
-import FormData from "form-data";
-import fs from "fs";
-import axios from "axios";
+import { crearCURecodatorio } from "./vacunacion/negocio/enviarRecordatorio/CUFactoryRecordatorio.js";
+import { crearTemporizador } from "./compartido/temporizador/Temporizador.js";
+import {getPort} from './config.js'
 
-const puerto = 5000;
-const url = `http://localhost:${puerto}/solicitudes`;
+const recordatorio = crearCURecodatorio();
+const temporizador = crearTemporizador()
 
-const yo = {
-  nombre: "Sasha",
-  apellido: "Berkowsky",
-  edad: 20,
-  dni: 42816270,
-  email: "snberkowsky@gmail.com",
-  antecedentes: "nada",
-  foto: fs.createReadStream("./inputs/fotoPaciente.png"),
-};
-
-function crearPacienteForm() {
-  const pacienteForm = new FormData();
-  for (let key in yo) {
-    pacienteForm.append(key, yo[key]);
-  }
-  return pacienteForm;
-}
-
-async function test() {
+async function main() {
   const servidor = crearServer();
-  const paciente = crearPacienteForm();
 
-  await servidor.conectar(puerto);
-
-  const res = await axios.post(url + "/", paciente, {
-    headers: paciente.getHeaders(),
-  });
+  await servidor.conectar(getPort());
+  temporizador.crearTemporizadorFechaHora(
+    "recordatorio",
+    { hour: 8, minute: 30},
+    () => {
+      recordatorio.recordarDiasAntes(7);
+    }
+  );
 }
 
-test();
+main();
+
+
+
+

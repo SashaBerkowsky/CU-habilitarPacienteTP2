@@ -1,41 +1,35 @@
+import { crearFechaHelper } from "../../../compartido/fechaHelper/fechaHelper.js";
+const fecha = crearFechaHelper();
 
-function crearRecordatorio(emailController, dao) {
+function crearEnviadorRecordatorio(emailModule, dao) {
   return {
     recordarDiasAntes: (dias) => {
-      
-      enviarPrimeraDosis(dias,dao, emailController);
-      enviarSegundaDosis(dias, dao, emailController);
+      enviarRecordatorioPorEstado(
+        "CONFIRMADO_PARA_VACUNARSE",
+        dias,
+        dao,
+        emailModule
+      );
+      enviarRecordatorioPorEstado(
+        "VACUNADO_PRIMERA_DOSIS",
+        dias,
+        dao,
+        emailModule
+      );
     },
   };
 }
 
-function enviarPrimeraDosis(dias, dao, emailController) {
-  const solicitudes = dao.obtenerSolicitudesParaRecordatorio("CONFIRMADO",dias);
-  solicitudes.forEach(element=>{
-
-    emailController.sendEmailWithImage(
-      "Vacunate",
-      element.paciente.email,
-      "Recordatorio Primera Dosis",
-      element
-    );
-  })     
-  
+async function enviarRecordatorioPorEstado(estado, dias, dao, emailModule) {
+  const { solicitudes, found } = await dao.getByEstado(estado);
+  if (found) {
+    solicitudes.forEach((solicitud) => {
+      const diasPrevios = fecha.obtenerDiasDeDiferencia(solicitud.turno.fecha);
+      if (diasPrevios == dias) {
+        emailModule.avisoRecordatorio(solicitud);
+      }
+    });
+  }
 }
 
-function enviarSegundaDosis(dias, dao, emailController) {
-
-  const solicitudes = dao.obtenerSolicitudesParaRecordatorio("COMPLETADOPD",dias);
-  solicitudes.forEach(element=>{
-
-    emailController.sendEmailWithImage(
-      "Vacunate",
-      element.paciente.email,
-      "Recordatorio Segunda Dosis",
-      element
-    );
-  })  
-
-}
-
-export { crearRecordatorio };
+export { crearEnviadorRecordatorio };

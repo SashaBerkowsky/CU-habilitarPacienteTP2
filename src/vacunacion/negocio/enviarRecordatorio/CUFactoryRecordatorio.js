@@ -1,23 +1,12 @@
-import { crearRecordatorio } from "./casoDeUso_enviarRecordatorio.js";
-import { createEmailController } from "../../compartido/email/EmailController.js";
-import { crearDaoSolicitudesCache } from "../../vacunacion/persistencia/DaoPersonasCache.js";
+import { crearEnviadorRecordatorio } from "./casoDeUso_enviarRecordatorio.js";
+import { crearEmailModule } from "../../../compartido/moduloMailing/emailModule.js";
+import { getDaoSolicitudes } from "../../persistencia/factoryDaoSolicitudes.js";
+import { getAuth } from "../../../config.js";
 
-
-const emailController = async () => {
-  const controller = await createEmailController(
-    "ort.proy.integrador.21@gmail.com",
-    "Ort123456"
-  );
-  return controller;
-};
-const enviadorMails =await emailController()
-
-
- function crearCURecodatorio() {
-  const dao =  crearDaoSolicitudesCache()
-  
-  
-  const recordatorio = crearRecordatorio(enviadorMails,dao);
+function crearCURecodatorio() {
+  const emailModule = crearEmailModule(getAuth());
+  const dao = getDaoSolicitudes();
+  const recordatorio = crearEnviadorRecordatorio(emailModule, dao);
 
   return recordatorio;
 }

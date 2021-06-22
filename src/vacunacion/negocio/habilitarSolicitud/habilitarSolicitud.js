@@ -1,15 +1,19 @@
 import { crearSolicitudDeTurno } from "../../modelos/SolicitudDeTurnoOLD.js";
+import { crearErrorSolicitudExistente } from "../../../compartido/errores/ErrorSolicitudExistente.js";
 
 function HabilitarSolicitud(daoSolicitudesDeTurno, emailModule) {
   return {
     ejecutar: async (datosSolicitud) => {
       const solicitud = crearSolicitudDeTurno(datosSolicitud);
-      const fueAgregado = daoSolicitudesDeTurno.add(solicitud);
-      if (!fueAgregado) {
-        throw new Error("el paciente ya esta en la lista de espera");
+      const { added } = await daoSolicitudesDeTurno.addUnique(solicitud);
+      if (!added) {
+        throw crearErrorSolicitudExistente(
+          "paciente ya tiene una solicitud asignada"
+        );
       }
       await emailModule.avisoAPaciente(solicitud.paciente);
       await emailModule.avisoAAdmin(solicitud.paciente);
+
       return solicitud;
     },
   };
