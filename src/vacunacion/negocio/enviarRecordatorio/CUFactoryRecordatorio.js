@@ -1,3 +1,4 @@
+// Hecho por: Nicolas Pacheco
 import { crearEnviadorRecordatorio } from "./casoDeUso_enviarRecordatorio.js";
 import { crearEmailModule } from "../../../compartido/moduloMailing/emailModule.js";
 import { getDaoSolicitudes } from "../../persistencia/factoryDaoSolicitudes.js";

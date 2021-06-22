@@ -1,3 +1,4 @@
+//Hecho por: Ovidio Saccani
 function CrearPreparadorDeDatosParaPdf(){ 
     return {
             prepararDatos(paciente, turno){

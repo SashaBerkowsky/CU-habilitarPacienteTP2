@@ -1,3 +1,4 @@
+//Hecho por: Sasha Berkowsky
 import { crearErrorDatosInvalidos } from "../../compartido/errores/ErrorDatosInvalidos.js";
 
 const tiposDeVacunaAceptadas = ["sputnik-v", "covishield", "sinopharm"];

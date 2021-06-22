@@ -1,3 +1,4 @@
+// Hecho por: Nicolas Pacheco
 import schedule from "node-schedule";
 const tarea = [];
 

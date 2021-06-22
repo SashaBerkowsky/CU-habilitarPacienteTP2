@@ -12,6 +12,7 @@ const imageMiddleware = crearImageMiddleware({
 function crearRouterSolicitudes() {
   const routerSolicitudes = express.Router();
 
+//- Hecho por: Sasha Berkowsky
   routerSolicitudes.post("/", imageMiddleware, async (req, res, next) => {
     try {
       const CU_HabilitarPaciente = crearCU_HabilitarPaciente();
@@ -22,6 +23,7 @@ function crearRouterSolicitudes() {
     }
   });
 
+//- Hecho por: Cadahia Desiree
   routerSolicitudes.post("/vacunar/:dni", async (req, res, next) => {
     try {
       const CU_ConfirmacionAplicacionDeDosis =
@@ -33,6 +35,7 @@ function crearRouterSolicitudes() {
     }
   });
 
+//- Hecho por: Ovidio Sacanni
   routerSolicitudes.patch("/", async (req, res, next) => {
     const casoDeUso = await crearCuConfirmadorDeTurno();
     try {

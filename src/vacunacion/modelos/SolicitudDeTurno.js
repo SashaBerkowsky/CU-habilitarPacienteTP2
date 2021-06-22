@@ -1,3 +1,4 @@
+//Hecho por: Sasha Berkowsky
 import { crearPaciente } from "./Paciente.js";
 import { crearTurno } from "./Turno.js";
 import { crearFechaHelper } from "../../compartido/fechaHelper/fechaHelper.js";
@@ -97,7 +98,7 @@ function crearSolicitudDeTurno(datos) {
   }
 
   solicitud.establecerTurno = (newturno) => {
-      turno = newturno;
+    turno = newturno;
   }
   solicitud.getEmail = () => {
     return paciente.email;

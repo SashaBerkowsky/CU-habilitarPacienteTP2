@@ -13,14 +13,12 @@ async function main() {
 
   temporizador.crearTemporizadorFechaHora(
     "recordatorio",
-    { hour: 17, minute: 58},
+    { hour: 18, minute: 16},
     () => {
       recordatorio.recordarDiasAntes(7);
     }
   );
 }
-
-
 
 main();
 

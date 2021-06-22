@@ -1,3 +1,4 @@
+//Hecho por: Sasha Berkowsky y Nicolas Pacheco
 import { createEmailComprobante } from "./emailComprobante.js";
 
 function crearEmailModule(auth, adminEmail) {

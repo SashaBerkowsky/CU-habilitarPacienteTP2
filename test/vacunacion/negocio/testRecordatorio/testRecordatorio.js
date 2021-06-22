@@ -1,3 +1,4 @@
+// Hecho por: Nicolas Pacheco
 import { crearDaoSolicitudesCache } from "../../persistencia/daos/daoSolicitudesCache.js";
 import {crearEmailModule} from "../../../../src/compartido/moduloMailing/emailModule.js"
 import { getAuth } from "../../../../src/config.js"

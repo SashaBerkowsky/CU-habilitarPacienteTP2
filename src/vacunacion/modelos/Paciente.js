@@ -1,3 +1,4 @@
+//Hecho por: Sasha Berkowsky
 import { crearErrorDatosInvalidos } from "../../compartido/errores/ErrorDatosInvalidos.js";
 
 function crearPaciente(datos) {
