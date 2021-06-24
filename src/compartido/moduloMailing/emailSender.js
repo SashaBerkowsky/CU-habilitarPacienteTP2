@@ -1,3 +1,4 @@
+//- Hecho por: Desiree Cadahia 
 import nodemailer from "nodemailer";
 
 function createEmailSender(user, pass) {

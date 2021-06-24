@@ -1,3 +1,4 @@
+//- Hecho por: Desiree Cadahia 
 import {crearErrorDniInexistente} from '../../../compartido/errores/ErrorDniInexistente.js'
 import {crearErrorDatosInvalidos} from '../../../compartido/errores/ErrorDatosInvalidos.js'
 
@@ -14,11 +15,11 @@ function crearCasoDeUso_ConfirmacionAplicacionDeDosis(
         const {solicitud, found} = await daoSolicitudesDeTurno.getByDni(dni)
         if(found){
           if(!(solicitud.getEstado() ==='CONFIRMACION_DE_VACUNACION_PENDIENTE'||solicitud.getEstado() ==='VACUNADO_SEGUNDADOSIS')){
-            solicitud.actualizarSolicitudDeTurno()
-            daoSolicitudesDeTurno.update(solicitud)
-            const paciente = solicitud.getPaciente()
+            solicitud.actualizarSolicitudDeTurno();
+            await daoSolicitudesDeTurno.update(solicitud);
+            const paciente = solicitud.getPaciente();
             const nombrePdf = paciente.nombre+''+paciente.apellido + '_'+ solicitud.getEstado()
-            const datosPdf = prepararDatosPdf.prepararDatos(paciente, solicitud.getTurno())
+            const datosPdf = prepararDatosPdf.prepararDatosParaComprobanteVacunacion(paciente, solicitud);
             pdfConversor.pasarAPdf(
               "Datos de la vacunacion:",
               nombrePdf,

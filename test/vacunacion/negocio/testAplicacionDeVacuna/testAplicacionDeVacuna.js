@@ -1,7 +1,7 @@
+//- Hecho por: Desiree Cadahia 
 import axios from "axios";
 import { getPort } from "../../../../src/config.js";
 
-//const url = "http://localhost/:" + getPort() + "/solicitudes/vacunar/42816270"
 const url = `http://localhost:${getPort()}/solicitudes/vacunar/42816270`;
 
 async function testConfirmadorVacunacion(){

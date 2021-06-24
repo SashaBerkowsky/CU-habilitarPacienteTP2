@@ -1,3 +1,4 @@
+//- Hecho por: Desiree Cadahia 
 function createEmailBuilder(user, pass) {
   return {
     createEmailPlainText: (from, to, subject, text) => {
